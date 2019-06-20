@@ -38,7 +38,7 @@ public class EmployeeServiceImpl implements EmployeeService {
             employeeDao.insert(employee);
             result.setIsSuccess(true);
         }catch (Exception e){
-            LOGGER.error("EmployeeServiceImpl [addEmployee] is error , cause by {} , employeeName is ");
+            LOGGER.error("EmployeeServiceImpl [addEmployee] is error , cause by {} , employeeName is ",e.getMessage(),employee.getName());
         }
         return result;
     }

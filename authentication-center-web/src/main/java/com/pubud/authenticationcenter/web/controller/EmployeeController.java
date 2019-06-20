@@ -1,6 +1,5 @@
 package com.pubud.authenticationcenter.web.controller;
 
-import com.netflix.discovery.converters.Auto;
 import com.pubud.authenticationcenter.biz.entity.Employee;
 import com.pubud.authenticationcenter.biz.service.EmployeeService;
 import com.pubud.authenticationcenter.web.controller.vo.EmployeeVO;
@@ -10,7 +9,6 @@ import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -44,13 +42,29 @@ public class EmployeeController {
     public Result addEmployee(@RequestBody EmployeeVO employeeVO){
         Result result = new Result();
         try {
-            Employee employee = new Employee();
-            BeanUtils.copyProperties(employee,employeeVO);
+            Employee employee = convertEmployeeVO(employeeVO);
             result = employeeService.addEmployee(employee);
         }catch (Exception e){
             LOGGER.error("EmployeeController [addEmployee] is error , cause by {} , employee is {}",e.getMessage(),employeeVO.toString());
             result.setExceptionInfo(ExceptionConstants.genSystemError(e));
         }
         return result;
+    }
+
+    /**
+     * 转化成entity
+     * @param employeeVO
+     * @return
+     */
+    private Employee convertEmployeeVO(EmployeeVO employeeVO){
+        Employee employee = new Employee();
+        employee.setAddress(employeeVO.getAddress());
+        employee.setAge(employeeVO.getAge());
+        employee.setDescription(employeeVO.getDescription());
+        employee.setEmail(employeeVO.getEmail());
+        employee.setGender(employeeVO.getGender());
+        employee.setMobile(employeeVO.getMobile());
+        employee.setName(employeeVO.getName());
+        return employee;
     }
 }
