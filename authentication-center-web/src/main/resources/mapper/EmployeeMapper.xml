@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.pubud.authenticationcenter.biz.dao.EmployeeDao">
+  <resultMap id="BaseResultMap" type="com.pubud.authenticationcenter.biz.entity.Employee">
+    <id column="id" property="id"/>
+    <result column="name" property="name"/>
+    <result column="mobile" property="mobile"/>
+    <result column="email" property="email"/>
+    <result column="address" property="address"/>
+    <result column="description" property="description"/>
+    <result column="age" property="age"/>
+    <result column="gender" property="gender"/>
+    <result column="create_time" property="createTime"/>
+    <result column="update_time" property="updateTime"/>
+  </resultMap>
+
+
+  <sql id="Base_Column_List">
+    id,name,mobile,email,address,description,age,gender,create_time,update_time
+  </sql>
+
+  <sql id="table">
+    employee
+  </sql>
+
+  <insert id="insert" parameterType="com.pubud.authenticationcenter.biz.entity.Employee" >
+    INSERT
+    INTO
+    <include refid="table"/>
+    (name,mobile,email,address,description,age,gender,create_time,update_time)
+    VALUES
+    (#{name},#{mobile},#{email},#{address},#{description},#{age},#{gender},#{createTime},#{updateTime})
+  </insert>
+
+
+
+
+</mapper>
